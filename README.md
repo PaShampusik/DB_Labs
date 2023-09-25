@@ -110,7 +110,7 @@
   - text text 
   - rating integer [not null]
 
-###13. model
+### 13. model
   - id integer [primary key] 
   - name varchar [not null]
   - year date [not null]
@@ -130,6 +130,6 @@
   - status bool [note: "1 - in_stock || 0 - not available", not null]
 
 ## Даталогическая модель
-![Даталогическая модель](Data Model.pdf)
+![Даталогическая модель](Data_Model.pdf)
 
 
