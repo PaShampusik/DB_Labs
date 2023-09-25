@@ -130,6 +130,6 @@
   - status bool [note: "1 - in_stock || 0 - not available", not null]
 
 ## Даталогическая модель
-![Даталогическая модель](Data_Model.pdf)
+![Даталогическая модель](DataModel.png)
 
 
