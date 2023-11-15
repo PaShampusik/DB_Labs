@@ -1,0 +1,124 @@
+CREATE TABLE "user" (
+  "id" serial,
+  "login" varchar(30) UNIQUE NOT NULL,
+  "password" varchar(30) NOT NULL,
+  "phone" varchar(11) NOT NULL,
+  "email" varchar UNIQUE,
+  "is_staff" bool NOT NULL,
+  "is_superuser" bool NOT NULL,
+  CONSTRAINT "user_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "order_status" (
+  "id" serial,
+  "status" integer NOT NULL,
+  CONSTRAINT "order_status_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "product_status" (
+  "id" serial,
+  "status" integer NOT NULL,
+  CONSTRAINT "product_status_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "mark" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  "place_of_production" varchar NOT NULL,
+  CONSTRAINT "mark_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "model" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  "year" date NOT NULL,
+  "mark_id" integer NOT NULL,
+  CONSTRAINT "model_mark_fk" FOREIGN KEY ("mark_id") REFERENCES "mark" ("id"),
+  CONSTRAINT "model_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "wheel" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  "size" integer NOT NULL,
+  CONSTRAINT "wheel_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "light" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  CONSTRAINT "light_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "feature" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  CONSTRAINT "feature_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "engine" (
+  "id" serial,
+  "name" varchar NOT NULL,
+  "volume" varchar NOT NULL,
+  CONSTRAINT "engine_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "product" (
+  "id" serial NOT NULL,
+  "model_id" integer NOT NULL,
+  "status_id" integer NOT NULL,
+  "wheel_id" integer NOT NULL,
+  "light_id" integer NOT NULL,
+  "engine_id" integer NOT NULL,
+  "feature_id" integer NOT NULL,
+  "exterior_color" varchar NOT NULL,
+  "interior_color" varchar NOT NULL,
+  "interior_material" varchar NOT NULL,
+  CONSTRAINT "product_model_fk" FOREIGN KEY ("model_id") REFERENCES "model" ("id"),
+  CONSTRAINT "product_status_fk" FOREIGN KEY ("status_id") REFERENCES "product_status" ("id"),
+  CONSTRAINT "product_wheel_fk" FOREIGN KEY ("wheel_id") REFERENCES "wheel" ("id"),
+  CONSTRAINT "product_light_fk" FOREIGN KEY ("light_id") REFERENCES "light" ("id"),
+  CONSTRAINT "product_engine_fk" FOREIGN KEY ("engine_id") REFERENCES "engine" ("id"),
+  CONSTRAINT "product_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "product_feature"(
+  "product_id" int REFERENCES "product" ("id") ON UPDATE CASCADE ON DELETE CASCADE,
+  "feature_id" int REFERENCES "feature" ("id") ON UPDATE CASCADE,
+  CONSTRAINT "product_feature_pk" PRIMARY KEY ("product_id", "feature_id")
+);
+CREATE TABLE "order" (
+  "id" serial,
+  "sum" integer NOT NULL,
+  "user_id" integer NOT NULL,
+  "product_id" integer NOT NULL,
+  "time" timestamp without time zone NOT NULL,
+  "status_id" integer NOT NULL,
+  CONSTRAINT "order_user_fk" FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
+  CONSTRAINT "order_product_fk" FOREIGN KEY ("product_id") REFERENCES "product" ("id"),
+  CONSTRAINT "order_status_fk" FOREIGN KEY ("status_id") REFERENCES "order_status" ("id"),
+  CONSTRAINT "order_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "log" (
+  "id" serial,
+  "action" int NOT NULL,
+  "id_user" integer NOT NULL,
+  CONSTRAINT "log_user_fk" FOREIGN KEY ("id_user") REFERENCES "user" ("id"),
+  CONSTRAINT "log_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "finance" (
+  "id" serial,
+  "action" integer NOT NULL,
+  "sum" integer NOT NULL,
+  "time" time NOT NULL,
+  CONSTRAINT "finance_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "employee" (
+  "id" serial,
+  "user_id" integer,
+  "hire_date" timestamp without time zone NOT NULL,
+  CONSTRAINT "employee_user_fk" FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
+  CONSTRAINT "employee_pk" PRIMARY KEY ("id")
+);
+CREATE TABLE "review" (
+  "id" serial,
+  "user_id" integer,
+  "text" text,
+  "rating" integer NOT NULL,
+  CONSTRAINT "review_user_fk" FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
+  CONSTRAINT "review_pk" PRIMARY KEY ("id")
+);
+COMMENT ON COLUMN "log"."action" IS '1 - entrance || 0 - exit';
+COMMENT ON COLUMN "finance"."action" IS '1 - income, 0 - outcome';
+COMMENT ON COLUMN "order_status"."status" IS '1 - done || 0 - processing';
+COMMENT ON COLUMN "product_status"."status" IS '1 - in_stock || 0 - not available';
