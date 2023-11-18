@@ -93,8 +93,8 @@ CREATE TABLE "log" (
   "id" serial,
   "action" int NOT NULL,
   "id_user" integer NOT NULL,
-  CONSTRAINT "log_user_fk" FOREIGN KEY ("id_user") REFERENCES "user" ("id"),
-  CONSTRAINT "log_pk" PRIMARY KEY ("id")
+  CONSTRAINT "log_user_fk" FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE;
+CONSTRAINT "log_pk" PRIMARY KEY ("id")
 );
 CREATE TABLE "finance" (
   "id" serial,
