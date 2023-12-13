@@ -14,6 +14,7 @@ from controllers import (
     user_controller,
     review_controller,
     wheel_controller,
+    auth_controller,
 )
 
 # from controllers import
@@ -38,6 +39,7 @@ app.include_router(order_controller.router)
 app.include_router(product_controller.router)
 app.include_router(review_controller.router)
 app.include_router(wheel_controller.router)
+app.include_router(auth_controller.router)
 
 
 if __name__ == "__main__":

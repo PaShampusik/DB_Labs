@@ -11,44 +11,44 @@ router = APIRouter(prefix="/api/engine", tags=["engine"])
 
 @router.get("/")
 async def get_all_engines(
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.get_all()
+    return await service.get_all(account=account)
 
 
 @router.get("/{id}")
 async def get_engine_by_id(
     id: int = Path(example=1, description="ID искомого ДВС"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.get_by_id(id)
+    return await service.get_by_id(id, account=account)
 
 
 @router.post("/")
 async def create_engine(
     create_schema: EmployeeSchemaCreate,
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.create(create_schema)
+    return await service.create(create_schema, account=account)
 
 
 @router.patch("/{id}")
 async def update_engine(
     update_schema: EmployeeSchemaUpdate,
     id: int = Path(example=1, description="ID обновляемого ДВС"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.update(id, update_schema)
+    return await service.update(id, update_schema, account=account)
 
 
 @router.delete("/{id}")
 async def delete_engine(
     id: int = Path(example=1, description="ID удаляемого ДВС"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.delete(id)
+    return await service.delete(id, account=account)

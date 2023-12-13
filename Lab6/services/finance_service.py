@@ -34,7 +34,7 @@ class FinanceService(BaseService):
         session: AsyncSession | None = None,
         account: FinanceSchema | None = None,
     ):
-        await self.check_staff(account)
+        await self.check_admin(account)
         return await super().create(schema_create, session, account)
 
     async def update(
@@ -53,5 +53,5 @@ class FinanceService(BaseService):
         session: AsyncSession | None = None,
         account: FinanceSchema | None = None,
     ):
-        await self.check_staff(account.id)
+        await self.check_admin(account.id)
         return await super().delete(id, session, account)

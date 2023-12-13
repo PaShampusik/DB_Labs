@@ -45,10 +45,10 @@ class AuthService(BaseService):
             options=options,
         )
         username = decoded["login"]
-        try:
-            user = await service.get_by_login(username)
-            return user
-        except:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
-            )
+        # try:
+        user = await service.get_by_login(username)
+        return user
+        # except:
+        # raise HTTPException(
+        #     status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
+        # )

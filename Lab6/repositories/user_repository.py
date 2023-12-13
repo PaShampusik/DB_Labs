@@ -26,3 +26,17 @@ class UserRepository(BaseRepo):
     @property
     def update_schema(self) -> type[UserSchemaUpdate]:
         return UserSchemaUpdate
+
+    async def get_by_login(self, session: AsyncSession, login: str):
+        statement = text(
+            f"SELECT * FROM public.user WHERE public.user.login = '{login}';"
+        )
+        res = await session.execute(statement)
+        if res is None:
+            raise NotFoundException(
+                404,
+                "Объект не найден",
+                self.model.__name__ + " with current ID: " + str(id) + " was not found",
+            )
+
+        return UserSchema.from_orm(res.fetchone())

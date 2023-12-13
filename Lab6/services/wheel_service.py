@@ -16,7 +16,7 @@ class WheelService(BaseService):
     async def get_all(
         self, session: AsyncSession | None = None, account: WheelSchema | None = None
     ):
-        await self.check_staff(account)
+        #await self.check_staff(account)
         return await super().get_all(session, account)
 
     async def get_by_id(
@@ -34,7 +34,7 @@ class WheelService(BaseService):
         session: AsyncSession | None = None,
         account: WheelSchema | None = None,
     ):
-        await self.check_staff(account)
+        await self.check_admin(account)
         return await super().create(schema_create, session, account)
 
     async def update(
@@ -53,5 +53,5 @@ class WheelService(BaseService):
         session: AsyncSession | None = None,
         account: WheelSchema | None = None,
     ):
-        await self.check_staff(account)
+        await self.check_admin(account)
         return await super().delete(id, session, account)

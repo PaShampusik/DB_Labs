@@ -11,44 +11,44 @@ router = APIRouter(prefix="/api/user", tags=["user"])
 
 @router.get("/")
 async def get_all_users(
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(UserService),
 ):
-    return await service.get_all()
+    return await service.get_all(account=account)
 
 
 @router.get("/{id}")
 async def get_users_by_id(
     id: int = Path(example=1, description="ID искомого пользователя"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(UserService),
 ):
-    return await service.get_by_id(id)
+    return await service.get_by_id(id, account=account)
 
 
 @router.post("/")
 async def create_user(
     create_schema: UserSchemaCreate,
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(UserService),
 ):
-    return await service.create(create_schema)
+    return await service.create(create_schema, account=account)
 
 
 @router.patch("/{id}")
 async def update_user(
     update_schema: UserSchemaUpdate,
     id: int = Path(example=1, description="ID обновляемого пользователя"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(UserService),
 ):
-    return await service.update(id, update_schema)
+    return await service.update(id, update_schema, account=account)
 
 
 @router.delete("/{id}")
 async def delete_user(
     id: int = Path(example=1, description="ID удаляемого пользователя"),
-    # account: UserSchema = Depends(AuthService.get_current_user),
+    account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(UserService),
 ):
-    return await service.delete(id)
+    return await service.delete(id, account=account)

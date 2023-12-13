@@ -8,3 +8,5 @@ class EmployeeSchema(BaseSchema):
     hire_date: datetime
 
     user: UserSchema
+
+

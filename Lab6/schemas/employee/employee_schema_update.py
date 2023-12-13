@@ -8,4 +8,3 @@ class EmployeeSchemaUpdate(BaseSchema):
     user_id: int
     hire_date: datetime
 
-    user: UserSchema
