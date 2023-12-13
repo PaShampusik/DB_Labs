@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey, String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 from base.base_model import BaseEntity
 
@@ -10,7 +10,7 @@ class BaseEmployee(BaseEntity):
     password: Mapped[str] = mapped_column(String(30), nullable=False)
     phone: Mapped[str] = mapped_column(String(17), nullable=False)
     email: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
-    is_staff: Mapped[bool] = mapped_column(bool, nullable=False)
-    is_superuser: Mapped[bool] = mapped_column(bool, nullable=False)
+    is_staff: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    is_superuser: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
 

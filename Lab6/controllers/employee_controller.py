@@ -6,7 +6,7 @@ from services.auth_service import AuthService
 from schemas.employee.employee_schema_update import EmployeeSchemaUpdate
 
 
-router = APIRouter(prefix="/api/admin", tags=["admin"])
+router = APIRouter(prefix="/api/employee", tags=["employee"])
 
 
 @router.get("/")
