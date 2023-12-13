@@ -1,4 +1,4 @@
---------------
+---------------
 --Триггер №1--
 --------------
 CREATE OR REPLACE FUNCTION order_insert_trigger_fnc() RETURNS TRIGGER AS $$
