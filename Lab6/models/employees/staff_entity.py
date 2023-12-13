@@ -1,9 +1,11 @@
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-from base.base_employee import BaseEmployee
+from base.base_model import BaseEntity
 
 
-class Staff(BaseEmployee):
+class Employee(BaseEntity):
     __tablename__ = "employee"
 
-    employee_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)

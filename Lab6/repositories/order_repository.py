@@ -44,13 +44,13 @@ class OrderRepository(BaseRepo):
         status.id = fields_dict["status_id"]
 
         return self.schema(user=user, product=product, status=status, **fields_dict)
-
+##########################################################################################
     async def get_all(self, session: AsyncSession):
         statement = text(
-            f"""SELECT * FROM {self.model.__tablename__}
-                JOIN user ON user.id = {self.model.__tablename__}.user_id
-                JOIN product ON product.id = {self.model.__tablename__}.product_id
-                JOIN order_status ON order_status.id = {self.model.__tablename__}.status_id;"""
+            f"""SELECT * FROM public.{self.model.__tablename__}
+                JOIN public.user ON public.user.id = public.{self.model.__tablename__}.user_id
+                JOIN public.product ON public.product.id = public.{self.model.__tablename__}.product_id
+                JOIN public.order_status ON public.order_status.id = public.{self.model.__tablename__}.status_id;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

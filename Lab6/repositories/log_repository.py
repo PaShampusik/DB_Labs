@@ -39,7 +39,7 @@ class LogRepository(BaseRepo):
     async def get_all(self, session: AsyncSession):
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
-                JOIN user ON user.id = {self.model.__tablename__}.id_user;"""
+                JOIN public.user ON public.user.id = {self.model.__tablename__}.id_user;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

@@ -2,12 +2,13 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from base.base_model import BaseEntity
 from datetime import datetime
+from sqlalchemy import ForeignKey, String, Integer, DateTime
 
 
 class Product(BaseEntity):
     __tablename__ = "product"
-    exterior_color: Mapped[str] = mapped_column(str, nullable=False)
-    exterior_color: Mapped[str] = mapped_column(str, nullable=False)
+    exterior_color: Mapped[str] = mapped_column(String, nullable=False)
+    exterior_color: Mapped[str] = mapped_column(String, nullable=False)
     feature_id: Mapped[int] = mapped_column(
         ForeignKey("product_feature.id"), nullable=False
     )

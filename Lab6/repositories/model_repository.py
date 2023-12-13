@@ -31,15 +31,17 @@ class ModelRepository(BaseRepo):
     async def create_response(self, row: Row):
         fields_dict = row._asdict()
 
-        user = MarkSchema.from_orm(fields_dict)
-        user.id = fields_dict["mark_id"]
+        mark = MarkSchema.from_orm(fields_dict)
+        mark.id = fields_dict["mark_id"]
 
-        return self.schema(user=user, **fields_dict)
+        return self.schema(mark=mark, **fields_dict)
 
+
+###########################################################TODO
     async def get_all(self, session: AsyncSession):
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
-                JOIN user ON mark.id = {self.model.__tablename__}.mark_id;"""
+                JOIN public.mark ON public.mark.id = {self.model.__tablename__}.mark_id;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

@@ -10,7 +10,7 @@ from base.base_service import AsyncSession
 from utils.not_found_exception import NotFoundException
 
 
-class EngineRepository(BaseRepo):
+class WheelRepository(BaseRepo):
     @property
     def model(self) -> type[Wheel]:
         return Wheel

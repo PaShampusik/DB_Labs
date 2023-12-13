@@ -3,7 +3,7 @@ from typing import Type
 from sqlalchemy import Row, text
 from base.base_repository import BaseRepo
 from base.base_service import AsyncSession
-from models.employees.staff_entity import Staff
+from models.employees.staff_entity import Employee
 from schemas.employee.employee_schema import EmployeeSchema
 from schemas.user.user_schema import UserSchema
 from schemas.employee.employee_schema_create import EmployeeSchemaCreate
@@ -13,8 +13,8 @@ from utils.not_found_exception import NotFoundException
 
 class EmployeeRepository(BaseRepo):
     @property
-    def model(self) -> type[Staff]:
-        return Staff
+    def model(self) -> type[Employee]:
+        return Employee
 
     @property
     def schema(self) -> type[EmployeeSchema]:
@@ -39,7 +39,7 @@ class EmployeeRepository(BaseRepo):
     async def get_all(self, session: AsyncSession):
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
-                JOIN user ON user.id = {self.model.__tablename__}.user_id;"""
+                JOIN public.user ON public.user.id = {self.model.__tablename__}.user_id;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

@@ -13,17 +13,10 @@ class EmployeeService(BaseService):
     def repository(self) -> type[EmployeeRepository]:
         return EmployeeRepository()
 
-    async def check_roles(self, user_id: int):
-        if not await self.check_admin_role(user_id):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Lack of access",
-            )
-
     async def get_all(
         self, session: AsyncSession | None = None, account: UserSchema | None = None
     ):
-        await self.check_roles(account.id)
+        await self.check_staff(account)
         return await super().get_all(session, account)
 
     async def get_by_id(
@@ -32,7 +25,7 @@ class EmployeeService(BaseService):
         session: AsyncSession | None = None,
         account: UserSchema | None = None,
     ):
-        await self.check_roles(account.id)
+        await self.check_staff(account)
         return await super().get_by_id(id, session, account)
 
     async def create(
@@ -41,7 +34,7 @@ class EmployeeService(BaseService):
         session: AsyncSession | None = None,
         account: UserSchema | None = None,
     ):
-        await self.check_roles(account.id)
+        await self.check_staff(account.id)
         return await super().create(schema_create, session, account)
 
     async def update(
@@ -51,7 +44,7 @@ class EmployeeService(BaseService):
         session: AsyncSession | None = None,
         account: UserSchema | None = None,
     ):
-        await self.check_roles(account.id)
+        await self.check_staff(account)
         return await super().update(id, schema_update, session, account)
 
     async def delete(
@@ -60,19 +53,5 @@ class EmployeeService(BaseService):
         session: AsyncSession | None = None,
         account: UserSchema | None = None,
     ):
-        await self.check_roles(account.id)
+        await self.check_staff(account)
         return await super().delete(id, session, account)
-
-    async def check_admin_role(
-        self,
-        user_id: int,
-        session: Optional[AsyncSession] = None,
-    ):
-        if session:
-            return await self._check_admin_role(user_id, session=session)
-        else:
-            async with self.async_session.begin() as session:
-                return await self._check_admin_role(user_id, session=session)
-
-    async def _check_admin_role(self, user_id: int, session=None) -> bool:
-        return await self.repository.check_admin_role(session=session, user_id=user_id)

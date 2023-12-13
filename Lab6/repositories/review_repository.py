@@ -39,7 +39,7 @@ class ReviewRepository(BaseRepo):
     async def get_all(self, session: AsyncSession):
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
-                JOIN user ON user.id = {self.model.__tablename__}.user_id;"""
+                JOIN public.user ON public.user.id = public.{self.model.__tablename__}.user_id;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

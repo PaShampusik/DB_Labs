@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Annotated, Optional, Type, TypeVar
 from fastapi import Depends
+from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from base.base_repository import BaseRepo
 
@@ -21,6 +22,20 @@ class BaseService(ABC):
 
     def __init__(self, session: AsyncSession) -> None:
         self.async_session = session
+
+    async def check_staff(self, account: UserSchema):
+        if account is not None and not account.is_staff:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Is not staff!",
+            )
+
+    async def check_admin(self, account: UserSchema):
+        if account is not None and not account.is_superuser:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Is not admin!",
+            )
 
     async def get_by_id(
         self,

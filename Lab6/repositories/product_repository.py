@@ -53,10 +53,11 @@ class ProductRepository(BaseRepo):
     async def get_all(self, session: AsyncSession):
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
-                JOIN light ON light.id = {self.model.__tablename__}.light_id
-                JOIN engine ON engine.id = {self.model.__tablename__}.product_id
-                JOIN wheel ON wheel.id = {self.model.__tablename__}.wheel_id
-                JOIN model ON model.id = {self.model.__tablename__}.model_id;"""
+                JOIN public.light ON public.light.id = {self.model.__tablename__}.light_id
+                JOIN public.engine ON public.engine.id = {self.model.__tablename__}.engine_id
+                JOIN public.wheel ON public.wheel.id = {self.model.__tablename__}.wheel_id
+                JOIN public.model ON public.model.id = {self.model.__tablename__}.model_id
+                JOIN public.mark ON public.mark.id = model.mark_id;"""
         )
         res = (await session.execute(statement)).fetchall()
         if res is None:

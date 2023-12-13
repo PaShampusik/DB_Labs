@@ -2,19 +2,18 @@ from typing import Optional, Type
 
 from fastapi import HTTPException, status
 from base.base_service import AsyncSession, BaseRepository, BaseService
-from repositories.user_repository import UserRepository
+from repositories.review_repository import ReviewRepository
 from base.base_repository import BaseRepo
-from schemas.user.user_schema import UserSchema
-from services.employee_service import EmployeeService
+from schemas.review.review_schema import ReviewSchema
 
 
-class UserService(BaseService):
+class ReviewService(BaseService):
     @property
-    def repository(self) -> UserRepository:
-        return UserRepository()
+    def repository(self) -> ReviewRepository:
+        return ReviewRepository()
 
     async def get_all(
-        self, session: AsyncSession | None = None, account: UserSchema | None = None
+        self, session: AsyncSession | None = None, account: ReviewSchema | None = None
     ):
         await self.check_staff(account)
         return await super().get_all(session, account)
@@ -23,7 +22,7 @@ class UserService(BaseService):
         self,
         id: int,
         session: AsyncSession | None = None,
-        account: UserSchema | None = None,
+        account: ReviewSchema | None = None,
     ):
         await self.check_staff(account)
         return await super().get_by_id(id, session, account)
@@ -32,7 +31,7 @@ class UserService(BaseService):
         self,
         schema_create: BaseRepo.create_schema,
         session: AsyncSession | None = None,
-        account: UserSchema | None = None,
+        account: ReviewSchema | None = None,
     ):
         await self.check_staff(account)
         return await super().create(schema_create, session, account)
@@ -42,7 +41,7 @@ class UserService(BaseService):
         id: int,
         schema_update: BaseRepo.update_schema,
         session: AsyncSession | None = None,
-        account: UserSchema | None = None,
+        account: ReviewSchema | None = None,
     ):
         await self.check_staff(account)
         return await super().update(id, schema_update, session, account)
@@ -51,7 +50,7 @@ class UserService(BaseService):
         self,
         id: int,
         session: AsyncSession | None = None,
-        account: UserSchema | None = None,
+        account: ReviewSchema | None = None,
     ):
         await self.check_staff(account)
         return await super().delete(id, session, account)
