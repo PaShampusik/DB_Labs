@@ -5,6 +5,6 @@ from schemas.user.user_schema import UserSchema
 class ReviewSchemaCreate(BaseSchema):
     id: int
     user_id: int
-    text: int
+    text: str
     rating: int
 

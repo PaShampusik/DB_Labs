@@ -5,5 +5,5 @@ from base.base_schema import BaseSchema
 class FinanceSchema(BaseSchema):
     id: int
     action: int
-    sum: float
+    sum: int
     time: datetime

@@ -6,5 +6,5 @@ from pydantic import BaseModel
 class FinanceSchemaCreate(BaseModel):
     id: int
     action: int
-    sum: float
+    sum: int
     time: datetime

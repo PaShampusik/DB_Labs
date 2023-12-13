@@ -5,7 +5,7 @@ from schemas.product.product_schema import ProductSchema
 from schemas.order_status.order_status_schema import OrderStatusSchema
 
 
-class OrderSchema(BaseSchema):
+class OrderSchemaUpdate(BaseSchema):
     id: int
     sum: int
     time: datetime
