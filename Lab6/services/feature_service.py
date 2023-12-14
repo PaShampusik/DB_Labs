@@ -16,7 +16,7 @@ class FeatureService(BaseService):
     async def get_all(
         self, session: AsyncSession | None = None, account: FeatureSchema | None = None
     ):
-        await self.check_staff(account)
+        # await self.check_staff(account)
         return await super().get_all(session, account)
 
     async def get_by_id(
@@ -44,7 +44,7 @@ class FeatureService(BaseService):
         session: AsyncSession | None = None,
         account: FeatureSchema | None = None,
     ):
-        await self.check_staff(account.id)
+        await self.check_staff(account)
         return await super().update(id, schema_update, session, account)
 
     async def delete(
@@ -53,5 +53,5 @@ class FeatureService(BaseService):
         session: AsyncSession | None = None,
         account: FeatureSchema | None = None,
     ):
-        await self.check_admin(account.id)
+        await self.check_admin(account)
         return await super().delete(id, session, account)

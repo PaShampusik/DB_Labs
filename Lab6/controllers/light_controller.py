@@ -11,10 +11,10 @@ router = APIRouter(prefix="/api/light", tags=["light"])
 
 @router.get("/")
 async def get_all_light(
-    account: UserSchema = Depends(AuthService.get_current_user),
+    #account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(LightService),
 ):
-    return await service.get_all(account=account)
+    return await service.get_all()
 
 
 @router.get("/{id}")

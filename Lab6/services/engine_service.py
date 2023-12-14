@@ -16,7 +16,7 @@ class EngineService(BaseService):
     async def get_all(
         self, session: AsyncSession | None = None, account: EngineSchema | None = None
     ):
-        await self.check_staff(account.id)
+        # await self.check_staff(account)
         return await super().get_all(session, account)
 
     async def get_by_id(

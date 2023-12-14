@@ -44,7 +44,7 @@ class OrderService(BaseService):
         session: AsyncSession | None = None,
         account: OrderSchema | None = None,
     ):
-        await self.check_staff(account.id)
+        await self.check_staff(account)
         return await super().update(id, schema_update, session, account)
 
     async def delete(
@@ -53,5 +53,5 @@ class OrderService(BaseService):
         session: AsyncSession | None = None,
         account: OrderSchema | None = None,
     ):
-        await self.check_admin(account.id)
+        await self.check_admin(account)
         return await super().delete(id, session, account)

@@ -14,7 +14,7 @@ async def get_all_features(
     account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(FeatureService),
 ):
-    return await service.get_all(account=account)
+    return await service.get_all()
 
 
 @router.get("/{id}")

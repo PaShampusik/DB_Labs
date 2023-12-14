@@ -53,6 +53,7 @@ class EmployeeRepository(BaseRepo):
     async def get_by_id(self, session: AsyncSession, id: int) -> EmployeeSchema:
         statement = text(
             f"""SELECT * FROM {self.model.__tablename__}
+                JOIN public.user ON public.user.id = public.{self.model.__tablename__}.user_id
                 WHERE public.{self.model.__tablename__}.id = {id};"""
         )
         res = (await session.execute(statement)).fetchone()

@@ -11,10 +11,10 @@ router = APIRouter(prefix="/api/engine", tags=["engine"])
 
 @router.get("/")
 async def get_all_engines(
-    account: UserSchema = Depends(AuthService.get_current_user),
+    #account: UserSchema = Depends(AuthService.get_current_user),
     service=Depends(EngineService),
 ):
-    return await service.get_all(account=account)
+    return await service.get_all()
 
 
 @router.get("/{id}")

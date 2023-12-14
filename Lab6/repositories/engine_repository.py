@@ -21,7 +21,7 @@ class EngineRepository(BaseRepo):
 
     @property
     def create_schema(self) -> type[EngineSchemaCreate]:
-        return EngineSchema
+        return EngineSchemaCreate
 
     @property
     def update_schema(self) -> type[EngineSchemaUpdate]:
