@@ -1,6 +1,5 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class ProductStatusSchemaUpdate(BaseSchema):
-    id: int
+class ProductStatusSchemaUpdate(BaseModel):
     status: int

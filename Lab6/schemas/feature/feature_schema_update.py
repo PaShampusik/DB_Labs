@@ -1,6 +1,5 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class FeatureSchemaUpdate(BaseSchema):
-    id: int
+class FeatureSchemaUpdate(BaseModel):
     name: str

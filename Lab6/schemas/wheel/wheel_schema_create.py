@@ -1,7 +1,7 @@
 from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class WheelSchemaCreate(BaseSchema):
-    id: int
+class WheelSchemaCreate(BaseModel):
     type: str
     size: int

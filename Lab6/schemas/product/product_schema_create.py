@@ -1,8 +1,7 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class ProductSchemaCreate(BaseSchema):
-    id: int
+class ProductSchemaCreate(BaseModel):
     model_id: int
     status_id: int
     wheel_id: int

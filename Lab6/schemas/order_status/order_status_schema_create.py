@@ -1,6 +1,5 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class OrderStatusSchemaCreate(BaseSchema):
-    id: int
+class OrderStatusSchemaCreate(BaseModel):
     status: int

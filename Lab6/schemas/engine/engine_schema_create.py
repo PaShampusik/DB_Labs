@@ -1,7 +1,6 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class EngineSchemaCreate(BaseSchema):
-    id: int
+class EngineSchemaCreate(BaseModel):
     name: str
     volume: str

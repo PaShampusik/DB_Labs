@@ -1,10 +1,7 @@
-from base.base_schema import BaseSchema
-from schemas.user.user_schema import UserSchema
+from base.base_model import BaseModel
 
 
-class ReviewSchemaCreate(BaseSchema):
-    id: int
+class ReviewSchemaCreate(BaseModel):
     user_id: int
     text: str
     rating: int
-

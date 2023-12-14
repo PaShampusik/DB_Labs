@@ -1,6 +1,5 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class LightSchemaCreate(BaseSchema):
-    id: int
+class LightSchemaCreate(BaseModel):
     name: str

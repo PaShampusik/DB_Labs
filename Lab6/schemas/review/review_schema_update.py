@@ -1,8 +1,7 @@
-from base.base_schema import BaseSchema
-from schemas.user.user_schema import UserSchema
+from base.base_model import BaseModel
 
 
-class ReviewSchemaUpdate(BaseSchema):
+class ReviewSchemaUpdate(BaseModel):
     id: int
     user_id: int
     text: str

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 
 class FinanceSchemaCreate(BaseModel):
-    id: int
     action: int
     sum: int
     time: datetime

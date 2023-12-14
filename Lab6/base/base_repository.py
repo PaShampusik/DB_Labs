@@ -3,6 +3,7 @@ from typing import Type, TypeVar
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import text
+from datetime import datetime
 
 from base.base_model import BaseEntity
 from base.base_schema import BaseSchema
@@ -53,16 +54,29 @@ class BaseRepo(ABC):
         return [self.schema.from_orm(obj) for obj in res]
 
     async def create(self, session: AsyncSession, schema_create: CreateSchemaType):
+        def fields_generator(values):
+            for value in values:
+                if isinstance(value, datetime):
+                    yield value.isoformat(timespec="seconds")
+                    continue
+                yield value
+
         fields_dict = schema_create.model_dump()
         statement = text(
             f"""INSERT INTO public.{self.model.__tablename__} ({', '.join([key for key in fields_dict.keys()])})
-                        VALUES {tuple(value for value in fields_dict.values())};"""
+                        VALUES {tuple(fields_generator(fields_dict.values()))};"""
         )
         await session.execute(statement)
 
     async def update(
         self, session: AsyncSession, id: int, schemaUpdate: UpdateSchemaType
     ):
+        def fields_generator(values):
+            for value in values:
+                if isinstance(value, datetime):
+                    yield value.isoformat(timespec="seconds")
+                    continue
+                yield value
         fields_dict = schemaUpdate.model_dump()
         statement = text(
             f"""UPDATE public.{self.model.__tablename__}

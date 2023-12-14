@@ -1,10 +1,9 @@
 from datetime import datetime
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 from schemas.mark.mark_schema import MarkSchema
 
 
-class ModelSchemaUpdate(BaseSchema):
-    id: int
+class ModelSchemaUpdate(BaseModel):
     name: str
     year: datetime
     mark_id: int

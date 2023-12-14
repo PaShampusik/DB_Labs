@@ -1,6 +1,6 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 
 
-class ProductFeatureSchemaUpdate(BaseSchema):
+class ProductFeatureSchemaUpdate(BaseModel):
     product_id: int
     feature_id: int

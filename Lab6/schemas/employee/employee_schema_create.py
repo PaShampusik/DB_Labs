@@ -1,10 +1,8 @@
-from base.base_schema import BaseSchema
+from base.base_model import BaseModel
 from datetime import datetime
 from schemas.user.user_schema import UserSchema
 
 
-class EmployeeSchemaCreate(BaseSchema):
-    id: int
+class EmployeeSchemaCreate(BaseModel):
     user_id: int
     hire_date: datetime
-
