@@ -26,6 +26,14 @@ async def get_order_by_id(
     return await service.get_by_id(id, account=account)
 
 
+@router.post("/{id}_order")
+async def order_by_id(
+    create_schema: OrderSchemaUpdate,
+    service=Depends(OrderService),
+):
+    return await service.order_by_id(create_schema)
+
+
 @router.post("/")
 async def create_order(
     create_schema: OrderSchemaCreate,

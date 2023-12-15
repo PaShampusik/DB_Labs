@@ -77,3 +77,13 @@ class OrderRepository(BaseRepo):
                 self.model.__name__ + " with current ID: " + str(id) + " was not found",
             )
         return await self.create_response(session, res)
+
+    async def get_by_id_order(
+        self, session: AsyncSession, id: int, schema: OrderSchema
+    ) -> OrderSchema:
+        statement = text(
+            f"""CALL public.get_order_by_id(
+                '{schema.order_id}'
+                );"""
+        )
+        await session.execute(statement)

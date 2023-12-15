@@ -47,6 +47,25 @@ class OrderService(BaseService):
         await self.check_staff(account)
         return await super().update(id, schema_update, session, account)
 
+    async def order_by_id(
+        self,
+        schema_create: OrderSchema,
+        session: Optional[AsyncSession] = None,
+        account: Optional[OrderSchema] = None,
+    ):
+        if session:
+            await self._order_by_id(schema_create, session)
+        else:
+            async with self.async_session.begin() as new_session:
+                await self.order_by_id(schema_create, new_session)
+
+    async def _order_by_id(
+        self,
+        schema_create: OrderSchema,
+        session: Optional[AsyncSession],
+    ):
+        await self.repository.order_by_id(session, schema_create)
+
     async def delete(
         self,
         id: int,
